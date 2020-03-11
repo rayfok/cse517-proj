@@ -1,17 +1,19 @@
-from allennlp.common.tqdm import Tqdm
-from allennlp.data.tokenizers.token import Token
-from allennlp.commands.elmo import ElmoEmbedder
-from pytorch_pretrained import GPT2Tokenizer, GPT2Model, GPT2LMHeadModel
-from pytorch_pretrained import BertTokenizer, BertModel, BertForMaskedLM
-import h5py
-import torch
-import numpy
-import os
 import csv
 import json
+import os
+from typing import Callable, Dict, List, Sequence, Tuple
+
+import numpy
 import spacy
+import torch
 from spacy.lang.en import English
-from typing import Dict, Tuple, Sequence, List, Callable
+
+import h5py
+from allennlp.commands.elmo import ElmoEmbedder
+from allennlp.common.tqdm import Tqdm
+from allennlp.data.tokenizers.token import Token
+from pytorch_pretrained import (BertForMaskedLM, BertModel, BertTokenizer,
+                                GPT2LMHeadModel, GPT2Model, GPT2Tokenizer)
 
 nlp = spacy.load("en_core_web_sm")
 spacy_tokenizer = English().Defaults.create_tokenizer(nlp)
@@ -211,7 +213,7 @@ def index_sentence(data_fn: str, index_fn: str, tokenize: Callable[[str], List[s
 
 if __name__ == "__main__":
     # where to save the contextualized embeddings
-    EMBEDDINGS_PATH = "~/contextual_embeddings"
+    EMBEDDINGS_PATH = "./contextual_embeddings"
 
     # sts.csv has been preprocessed to remove all quotes of type ", since they are often not completed
     elmo = ELMo()
