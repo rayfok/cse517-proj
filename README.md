@@ -43,6 +43,7 @@ Perform analysis
 
 ```Python
 python analyze.py
+python new_analyze.py
 ```
 
 Visualize the results
@@ -50,3 +51,4 @@ Visualize the results
 ```Python
 python visualize.py
 ```
+Outputs the plots into the img/ folder.
