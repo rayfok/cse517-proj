@@ -605,6 +605,7 @@ def _fetch_file(url, data_dir=TEMP, uncompress=False, move=False,md5sum=None,
             # Download data
             url_opener = _urllib.request.build_opener(*handlers)
             request = _urllib.request.Request(url)
+            print(url) # ADDED BY ME FARZAM
             request.add_header('Connection', 'Keep-Alive')
             if username is not None and password is not None:
                 if not url.startswith('https'):

@@ -40,7 +40,11 @@ class Vectorizer:
 
         with h5py.File(out_fn, 'w') as fout:
             for sentence in Tqdm.tqdm(sentences):
-                embeddings = self.vectorize(sentence)
+                try:
+                    embeddings = self.vectorize(sentence)
+                except:
+                    print("oops!")
+                    continue
                 fout.create_dataset(str(sentence_index), embeddings.shape, dtype='float32', data=embeddings)
                 sentence_index += 1
 
@@ -213,7 +217,7 @@ def index_sentence(data_fn: str, index_fn: str, tokenize: Callable[[str], List[s
 
 if __name__ == "__main__":
     # where to save the contextualized embeddings
-    EMBEDDINGS_PATH = "./contextual_embeddings"
+    EMBEDDINGS_PATH = "/tmp/f_contextual_embeddings/"
 
     # sts.csv has been preprocessed to remove all quotes of type ", since they are often not completed
     elmo = ELMo()

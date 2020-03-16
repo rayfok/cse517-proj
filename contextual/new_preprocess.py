@@ -93,16 +93,16 @@ class XLNet(Vectorizer):
 
 
 if __name__ == '__main__':
-    EMBEDDINGS_PATH = "./contextual_embeddings"
+    EMBEDDINGS_PATH = "/tmp/f_contextual_embeddings/"
 
     roberta = RoBERTa()
     sentences = index_sentence('sts.csv', 'roberta/word2sent.json', roberta.tokenizer.tokenize)
     roberta.make_hdf5_file(sentences, os.path.join(EMBEDDINGS_PATH, 'roberta.hdf5'))
 
-    xlm = XLM()
-    sentences = index_sentence('sts.csv', 'xlm/word2sent.json', xlm.tokenizer.tokenize)
-    xlm.make_hdf5_file(sentences, os.path.join(EMBEDDINGS_PATH, 'xlm.hdf5'))
+    #xlm = XLM()
+    #sentences = index_sentence('sts.csv', 'xlm/word2sent.json', xlm.tokenizer.tokenize)
+    #xlm.make_hdf5_file(sentences, os.path.join(EMBEDDINGS_PATH, 'xlm.hdf5'))
 
-    xlnet = XLNet()
-    sentences = index_sentence('sts.csv', 'xlnet/word2sent.json', xlnet.tokenizer.tokenize)
-    xlnet.make_hdf5_file(sentences, os.path.join(EMBEDDINGS_PATH, 'xlnet.hdf5'))
+    #xlnet = XLNet()
+    #sentences = index_sentence('sts.csv', 'xlnet/word2sent.json', xlnet.tokenizer.tokenize)
+    #xlnet.make_hdf5_file(sentences, os.path.join(EMBEDDINGS_PATH, 'xlnet.hdf5'))

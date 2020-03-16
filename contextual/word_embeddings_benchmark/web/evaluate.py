@@ -202,6 +202,7 @@ def evaluate_analogy(w, X, y, method="add", k=None, category=None, batch_size=10
         w = Embedding.from_dict(w)
 
     assert category is None or len(category) == y.shape[0], "Passed incorrect category list"
+    print("HERE I AM")
 
     solver = SimpleAnalogySolver(w=w, method=method, batch_size=batch_size, k=k)
     y_pred = solver.predict(X)
@@ -372,25 +373,33 @@ def evaluate_on_all(w):
 
     similarity_results = {}
 
+
+    print("THIS LINE 1")
+
     for name, data in iteritems(similarity_tasks):
         similarity_results[name] = evaluate_similarity(w, data.X, data.y)
         logger.info("Spearman correlation of scores on {} {}".format(name, similarity_results[name]))
 
+    print("THIS LINE 2")
     # Calculate results on analogy
     logger.info("Calculating analogy benchmarks")
     analogy_tasks = {
-        "Google": fetch_google_analogy(),
-        "MSR": fetch_msr_analogy()
+        #"Google": fetch_google_analogy(),
+        #"MSR": fetch_msr_analogy()
     }
 
+    print("THIS LINE 3")
     analogy_results = {}
 
     for name, data in iteritems(analogy_tasks):
+        print(name)
         analogy_results[name] = evaluate_analogy(w, data.X, data.y)
         logger.info("Analogy prediction accuracy on {} {}".format(name, analogy_results[name]))
 
+    print("THIS LINE 4")
     analogy_results["SemEval2012_2"] = evaluate_on_semeval_2012_2(w)['all']
     logger.info("Analogy prediction accuracy on {} {}".format("SemEval2012", analogy_results["SemEval2012_2"]))
+    print("THIS LINE 5")
 
     # Calculate results on categorization
     logger.info("Calculating categorization benchmarks")

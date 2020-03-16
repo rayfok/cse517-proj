@@ -330,8 +330,12 @@ def fetch_TR9856():
     Notes
     -----
     """
+    #data = pd.read_csv(os.path.join(_fetch_file(
+    #    'https://www.research.ibm.com/haifa/dept/vst/files/IBM_Debater_(R)_TR9856.v2.zip',
+    #    'similarity', uncompress=True, verbose=0),
+    #    'IBM_Debater_(R)_TR9856.v0.2', 'TermRelatednessResults.csv'), encoding="iso-8859-1")
     data = pd.read_csv(os.path.join(_fetch_file(
-        'https://www.research.ibm.com/haifa/dept/vst/files/IBM_Debater_(R)_TR9856.v2.zip',
+        'http://homes.cs.washington.edu/~febrahim/files/IBM_Debater_(R)_TR9856.v2.zip',
         'similarity', uncompress=True, verbose=0),
         'IBM_Debater_(R)_TR9856.v0.2', 'TermRelatednessResults.csv'), encoding="iso-8859-1")
 

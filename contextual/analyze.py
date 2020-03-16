@@ -10,6 +10,7 @@ from scipy.spatial.distance import cosine
 from allennlp.common.tqdm import Tqdm
 from scipy.stats import spearmanr
 from sklearn.decomposition import PCA
+from sklearn.decomposition import TruncatedSVD
 
 
 def calculate_word_similarity_across_sentences(
@@ -52,14 +53,22 @@ def calculate_word_similarity_across_sentences(
 			layer_similarities = []
 
 			for i,j in index_pairs:
-				sent_index_i, word_in_sent_index_i = occurrences[i]
-				embedding_i = f[str(sent_index_i)][layer, word_in_sent_index_i]
+				try:
+					sent_index_i, word_in_sent_index_i = occurrences[i]
+					embedding_i = f[str(sent_index_i)][layer, word_in_sent_index_i]
 
-				sent_index_j, word_in_sent_index_j = occurrences[j]
-				embedding_j = f[str(sent_index_j)][layer, word_in_sent_index_j]
+					sent_index_j, word_in_sent_index_j = occurrences[j]
+					embedding_j = f[str(sent_index_j)][layer, word_in_sent_index_j]
 
-				layer_similarities.append(1 - cosine(embedding_i, embedding_j))
-
+					layer_similarities.append(1 - cosine(embedding_i, embedding_j))
+					#print("DONE")
+					#print(sent_index_i)	
+					#print(sent_index_j)	
+				except:	
+					#print("oops, really!")	
+					#print(sent_index_i)	
+					#print(sent_index_j)	
+					continue	
 			mean_layer_similarity = round(np.nanmean(layer_similarities), 3)
 			similarity_by_layer[f'layer_{layer}'] = mean_layer_similarity
 
@@ -191,22 +200,23 @@ def explore_embedding_space(
 
 if __name__ == "__main__":
 	# where the contextualized embeddings are saved (in HDF5 format)
-	EMBEDDINGS_PATH = "~/contextual_embeddings"
+	EMBEDDINGS_PATH = "/tmp/f_contextual_embeddings"
 
-	for model in ["elmo", "bert", "gpt2"]:
+	#for model in ["elmo", "bert", "gpt2"]:
+	for model in ["gpt2"]:
 		print(f"Analyzing {model} ...")
 
 		word2sent_indexer = json.load(open(f'{model}/word2sent.json', 'r'))
-		scores = json.load(open(f'{model}/scores.json', 'r'))
+		# scores = json.load(open(f'{model}/scores.json', 'r'))
 		EMBEDDINGS_FULL_PATH = os.path.join(EMBEDDINGS_PATH, f'{model}.hdf5')
 
-		print(f"Analyzing word similarity across sentences ...")
-		calculate_word_similarity_across_sentences(EMBEDDINGS_FULL_PATH, word2sent_indexer, 
-			f'{model}/self_similarity.csv')
+#		print(f"Analyzing word similarity across sentences ...")
+#		calculate_word_similarity_across_sentences(EMBEDDINGS_FULL_PATH, word2sent_indexer, 
+#			f'{model}/self_similarity.csv')
 
-		print(f"Analyzing variance explained by first principal component ...")
-		variance_explained_by_pc(EMBEDDINGS_FULL_PATH, word2sent_indexer,
-			f'{model}/variance_explained.csv', os.path.join(EMBEDDINGS_PATH, f'pcs/{model}.pc.'))
+#		print(f"Analyzing variance explained by first principal component ...")
+#		variance_explained_by_pc(EMBEDDINGS_FULL_PATH, word2sent_indexer,
+#			f'{model}/variance_explained.csv', os.path.join(EMBEDDINGS_PATH, f'pcs/{model}.pc.'))
 
 		print(f"Exploring embedding space ...")
 		explore_embedding_space(EMBEDDINGS_FULL_PATH, f'{model}/embedding_space_stats.json')

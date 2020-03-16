@@ -1,27 +1,27 @@
 {
  "mean cosine similarity between sentence and words": {
-  "layer_0": 0.318,
-  "layer_1": 0.582,
+  "layer_0": 0.317,
+  "layer_1": 0.58,
   "layer_2": 0.621
  },
  "mean cosine similarity across words": {
-  "layer_0": 0.008,
-  "layer_1": 0.157,
+  "layer_0": 0.009,
+  "layer_1": 0.161,
   "layer_2": 0.136
  },
  "word norm std": {
-  "layer_0": 4.435,
-  "layer_1": 2.398,
-  "layer_2": 3.817
+  "layer_0": 4.494,
+  "layer_1": 2.36,
+  "layer_2": 3.6
  },
  "word norm mean": {
-  "layer_0": 13.643,
-  "layer_1": 15.035,
-  "layer_2": 29.897
+  "layer_0": 13.626,
+  "layer_1": 14.977,
+  "layer_2": 29.701
  },
  "variance explained for random words": {
-  "layer_0": 0.087,
-  "layer_1": 0.003,
+  "layer_0": 0.084,
+  "layer_1": 0.002,
   "layer_2": 0.004
  }
 }
