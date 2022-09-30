@@ -13,7 +13,7 @@ cryptography==2.7
 cycler==0.10.0
 decorator==4.4.1
 idna==2.8
-joblib==0.14.1
+joblib==1.2.0
 jsonpickle==1.2
 kiwisolver==1.1.0
 libarchive-c==2.8
